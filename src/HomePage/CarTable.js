@@ -8,7 +8,10 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
 import EnhancedTableHead from "./TableHead";
-import { getAllCars } from "../_reducers/";
+import { getAllCars } from "../_reducers/car.reducer";
+import { retrieveCategory } from "../_reducers/categories.reducer";
+import { retrieveCarMake } from "../_reducers/make.reducer";
+import { retrieveCarModel } from "../_reducers/model.reducer";
 
 // function getSorting(order, orderBy) {
 //   return order === "desc"
@@ -92,8 +95,9 @@ class EnhancedTable extends React.Component {
   };
 
   render() {
-    const { cars } = this.props;
-    const { data, order, orderBy, rowsPerPage, page } = this.state;
+    const { cars, categories, carMakes, carModels } = this.props;
+    const { order, orderBy, rowsPerPage, page } = this.state;
+    const data = getAllCars(cars);
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
@@ -109,7 +113,7 @@ class EnhancedTable extends React.Component {
               rowCount={data.length}
             />
             <TableBody>
-              {getAllCars(cars)
+              {data
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => (
                   <TableRow
@@ -125,9 +129,15 @@ class EnhancedTable extends React.Component {
                     <TableCell component="th" scope="row" padding="none">
                       {n.uuid}
                     </TableCell>
-                    <TableCell numeric>{n.make}</TableCell>
-                    <TableCell numeric>{n.model}</TableCell>
-                    <TableCell numeric>{n.category}</TableCell>
+                    <TableCell numeric>
+                      {retrieveCarMake(carMakes, n.make).name}
+                    </TableCell>
+                    <TableCell numeric>
+                      {retrieveCarModel(carModels, n.model).name}
+                    </TableCell>
+                    <TableCell numeric>
+                      {retrieveCategory(categories, n.category).name}
+                    </TableCell>
                     <TableCell numeric>{n.price}</TableCell>
                   </TableRow>
                 ))}
@@ -159,7 +169,10 @@ class EnhancedTable extends React.Component {
 }
 
 EnhancedTable.propTypes = {
-  cars: PropTypes.shape({}).isRequired
+  cars: PropTypes.shape({}).isRequired,
+  carModels: PropTypes.shape({}).isRequired,
+  carMakes: PropTypes.shape({}).isRequired,
+  categories: PropTypes.shape({}).isRequired
 };
 
 export default EnhancedTable;

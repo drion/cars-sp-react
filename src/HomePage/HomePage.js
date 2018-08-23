@@ -11,14 +11,30 @@ import "../_styles/HomePage.scss";
 class HomePage extends React.Component {
     componentDidMount() {
         this.props.getCarsList();
+        this.props.getCategoriesList();
+        this.props.getMakesList();
+        this.props.getModelsList();
     }
 
     render() {
-        const { cars } = this.props;
+        const { cars, categories, carMakes, carModels } = this.props;
+
+        const isLoading =
+            cars.isLoading ||
+            categories.isLoading ||
+            carMakes.isLoading ||
+            carModels.isLoading;
 
         return (
             <div className="home-page">
-                <CarTable cars={cars} />
+                {!isLoading && (
+                    <CarTable
+                        cars={cars}
+                        categories={categories}
+                        carMakes={carMakes}
+                        carModels={carModels}
+                    />
+                )}
             </div>
         );
     }
@@ -26,14 +42,26 @@ class HomePage extends React.Component {
 
 HomePage.propTypes = {
     getCarsList: PropTypes.func.isRequired,
-    cars: PropTypes.shape({}).isRequired
+    getCategoriesList: PropTypes.func.isRequired,
+    getMakesList: PropTypes.func.isRequired,
+    getModelsList: PropTypes.func.isRequired,
+    cars: PropTypes.shape({}).isRequired,
+    categories: PropTypes.shape({}).isRequired,
+    carMakes: PropTypes.shape({}).isRequired,
+    carModels: PropTypes.shape({}).isRequired
 };
 
-const mapStateToProps = cars => ({
-    cars
-});
+const mapStateToProps = state => {
+    const { cars, categories, carMakes, carModels } = state;
+    return { cars, categories, carMakes, carModels };
+};
 
 export default connect(
     mapStateToProps,
-    { getCarsList: carActions.getCarsList }
+    {
+        getCarsList: carActions.getCarsList,
+        getCategoriesList: carActions.getCategoriesList,
+        getMakesList: carActions.getMakesList,
+        getModelsList: carActions.getModelsList
+    }
 )(HomePage);
