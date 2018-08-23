@@ -30,6 +30,8 @@ class HomePage extends React.Component {
         this.setState({ open: false });
     };
 
+    handleCreate = data => this.props.createCar(data);
+
     render() {
         const { open } = this.state;
         const {
@@ -68,6 +70,7 @@ class HomePage extends React.Component {
                         <CreateDialog
                             open={open}
                             handleClose={this.handleClose}
+                            handleCreate={data => this.handleCreate(data)}
                         />
                     </div>
                 )}
@@ -82,6 +85,7 @@ HomePage.propTypes = {
     getMakesList: PropTypes.func.isRequired,
     getModelsList: PropTypes.func.isRequired,
     sortModels: PropTypes.func.isRequired,
+    createCar: PropTypes.func.isRequired,
     cars: PropTypes.shape({}).isRequired,
     categories: PropTypes.shape({}).isRequired,
     carMakes: PropTypes.shape({}).isRequired,
@@ -100,6 +104,7 @@ export default connect(
         getCategoriesList: carActions.getCategoriesList,
         getMakesList: carActions.getMakesList,
         getModelsList: carActions.getModelsList,
-        sortModels: carActions.sortModels
+        sortModels: carActions.sortModels,
+        createCar: carActions.createCar
     }
 )(HomePage);

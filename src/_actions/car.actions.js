@@ -27,6 +27,31 @@ function getCarsList() {
     };
 }
 
+function createCar(data) {
+    function request() {
+        return { type: carConstants.CREATE_CAR_REQUEST };
+    }
+
+    function success(payload) {
+        return { type: carConstants.CREATE_CAR_SUCCESS, payload };
+    }
+
+    function failure(error) {
+        return { type: carConstants.CREATE_CAR_FAILURE, error };
+    }
+
+    return dispatch => {
+        dispatch(request());
+
+        return carService
+            .createCar(data)
+            .then(
+                payload => dispatch(success(payload.data)),
+                error => dispatch(failure(error))
+            );
+    };
+}
+
 function getCategoriesList() {
     function request() {
         return { type: carConstants.GET_CATEGORIES_REQUEST };
@@ -120,6 +145,7 @@ const sortModels = (order, orderBy) => (dispatch, getState) => {
 
 const carActions = {
     getCarsList,
+    createCar,
     getCategoriesList,
     getMakesList,
     getModelsList,

@@ -16,8 +16,8 @@ export const byId = (state = {}, action) => {
 
         case carConstants.CREATE_CAR_SUCCESS: {
             const nextState = { ...state };
-            const { car } = action;
-            nextState[car.uuid] = car;
+            const { payload } = action;
+            nextState[payload.uuid] = payload;
 
             return nextState;
         }
@@ -53,7 +53,7 @@ export const allIds = (state = [], action) => {
             );
 
         case carConstants.CREATE_CAR_SUCCESS:
-            return [action.car.uuid, ...state];
+            return [action.payload.uuid, ...state];
 
         case carConstants.SORT_CARS:
             return action.text
