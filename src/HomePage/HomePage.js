@@ -1,14 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
 
 import { connect } from "react-redux";
 
 import CarTable from "./CarTable";
+import CreateDialog from "./CreateDialog";
 import carActions from "../_actions/car.actions";
 
 import "../_styles/HomePage.scss";
 
 class HomePage extends React.Component {
+    state = {
+        open: false
+    };
+
     componentDidMount() {
         this.props.getCarsList();
         this.props.getCategoriesList();
@@ -16,7 +22,16 @@ class HomePage extends React.Component {
         this.props.getModelsList();
     }
 
+    handleClickOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+
     render() {
+        const { open } = this.state;
         const {
             cars,
             categories,
@@ -34,13 +49,27 @@ class HomePage extends React.Component {
         return (
             <div className="home-page">
                 {!isLoading && (
-                    <CarTable
-                        cars={cars}
-                        categories={categories}
-                        carMakes={carMakes}
-                        carModels={carModels}
-                        sortModels={sortModels}
-                    />
+                    <div className="content">
+                        <div className="buttonContainer">
+                            <Button
+                                onClick={this.handleClickOpen}
+                                className="addNewCar"
+                            >
+                                Add new car
+                            </Button>
+                        </div>
+                        <CarTable
+                            cars={cars}
+                            categories={categories}
+                            carMakes={carMakes}
+                            carModels={carModels}
+                            sortModels={sortModels}
+                        />
+                        <CreateDialog
+                            open={open}
+                            handleClose={this.handleClose}
+                        />
+                    </div>
                 )}
             </div>
         );

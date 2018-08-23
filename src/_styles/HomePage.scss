@@ -1,7 +1,28 @@
 .home-page {
     padding-top: 50px;
-    .table-root {
+    .content {
         max-width: 1200px;
         margin: 0 auto;
+    }
+
+    .buttonContainer {
+        text-align: right;
+    }
+
+    .addNewCar {
+        background: #3498db;
+        color: #fff;
+        right: 0;
+        margin-bottom: 12px;
+
+        &:hover {
+            background: #3498db;
+            opacity: 0.9;
+        }
+    }
+
+    .add-car-dialog {
+        min-width: 400px;
+        width: 100%;
     }
 }
