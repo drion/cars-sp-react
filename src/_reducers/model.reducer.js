@@ -55,7 +55,7 @@ export const allIds = (state = [], action) => {
         case carConstants.CREATE_CAR_MODELS_SUCCESS:
             return [action.carModel.uuid, ...state];
 
-        case carConstants.SORT_CAR_MODELS:
+        case carConstants.SORT_MODELS:
             return action.text
                 ? state
                 : sortList(action.list, action.order, action.orderBy).map(

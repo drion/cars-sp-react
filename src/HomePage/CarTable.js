@@ -13,33 +13,13 @@ import { retrieveCategory } from "../_reducers/categories.reducer";
 import { retrieveCarMake } from "../_reducers/make.reducer";
 import { retrieveCarModel } from "../_reducers/model.reducer";
 
-// function getSorting(order, orderBy) {
-//   return order === "desc"
-//     ? (a, b) => (b[orderBy] < a[orderBy] ? -1 : 1)
-//     : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1);
-// }
-
-// const styles = theme => ({
-//   root: {
-//     width: "100%",
-//     marginTop: theme.spacing.unit * 3
-//   },
-//   table: {
-//     minWidth: 1020
-//   },
-//   tableWrapper: {
-//     overflowX: "auto"
-//   }
-// });
-
 class EnhancedTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       order: "asc",
-      orderBy: "calories",
-      selected: [],
+      orderBy: "make",
       data: [],
       page: 0,
       rowsPerPage: 5
@@ -54,36 +34,13 @@ class EnhancedTable extends React.Component {
       order = "asc";
     }
 
+    const functions = {
+      model: () => this.props.sortModels(order, "model")
+    };
+
+    functions[orderBy]();
+
     this.setState({ order, orderBy });
-  };
-
-  handleSelectAllClick = (event, checked) => {
-    if (checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
-      return;
-    }
-    this.setState({ selected: [] });
-  };
-
-  handleClick = (event, id) => {
-    const { selected } = this.state;
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    this.setState({ selected: newSelected });
   };
 
   handleChangePage = (event, page) => {
@@ -172,7 +129,8 @@ EnhancedTable.propTypes = {
   cars: PropTypes.shape({}).isRequired,
   carModels: PropTypes.shape({}).isRequired,
   carMakes: PropTypes.shape({}).isRequired,
-  categories: PropTypes.shape({}).isRequired
+  categories: PropTypes.shape({}).isRequired,
+  sortModels: PropTypes.func.isRequired
 };
 
 export default EnhancedTable;

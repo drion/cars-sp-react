@@ -17,7 +17,13 @@ class HomePage extends React.Component {
     }
 
     render() {
-        const { cars, categories, carMakes, carModels } = this.props;
+        const {
+            cars,
+            categories,
+            carMakes,
+            carModels,
+            sortModels
+        } = this.props;
 
         const isLoading =
             cars.isLoading ||
@@ -33,6 +39,7 @@ class HomePage extends React.Component {
                         categories={categories}
                         carMakes={carMakes}
                         carModels={carModels}
+                        sortModels={sortModels}
                     />
                 )}
             </div>
@@ -45,6 +52,7 @@ HomePage.propTypes = {
     getCategoriesList: PropTypes.func.isRequired,
     getMakesList: PropTypes.func.isRequired,
     getModelsList: PropTypes.func.isRequired,
+    sortModels: PropTypes.func.isRequired,
     cars: PropTypes.shape({}).isRequired,
     categories: PropTypes.shape({}).isRequired,
     carMakes: PropTypes.shape({}).isRequired,
@@ -62,6 +70,7 @@ export default connect(
         getCarsList: carActions.getCarsList,
         getCategoriesList: carActions.getCategoriesList,
         getMakesList: carActions.getMakesList,
-        getModelsList: carActions.getModelsList
+        getModelsList: carActions.getModelsList,
+        sortModels: carActions.sortModels
     }
 )(HomePage);

@@ -1,5 +1,6 @@
 import carConstants from "../_constants/car.constants";
 import carService from "../_services/car.service";
+import { getAllCarModels } from "../_reducers/";
 
 function getCarsList() {
     function request() {
@@ -101,11 +102,28 @@ function getModelsList() {
     };
 }
 
+const sortModels = (order, orderBy) => (dispatch, getState) => {
+    const state = getState();
+    const allModels = getAllCarModels(state);
+    // const searchFoundationsList = getSearchFoundations(state);
+    // const searchText = getSearchText(state);
+
+    dispatch({
+        type: carConstants.SORT_MODELS,
+        // list: searchText ? searchFoundationsList : allFoundations,
+        list: allModels,
+        order,
+        text: "",
+        orderBy
+    });
+};
+
 const carActions = {
     getCarsList,
     getCategoriesList,
     getMakesList,
-    getModelsList
+    getModelsList,
+    sortModels
 };
 
 export default carActions;
