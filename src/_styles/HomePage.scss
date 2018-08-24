@@ -59,6 +59,7 @@
 
 .custom-year-picker {
     position: relative;
+    max-width: 100px;
     height: 36px;
     .cancel {
         position: absolute;
@@ -67,6 +68,9 @@
         color: rgba(0, 0, 0, 0.5);
     }
 
+    .year-picker {
+        height: 100%;
+    }
     &.year-active i,
     &.year-active:hover i {
         display: none;

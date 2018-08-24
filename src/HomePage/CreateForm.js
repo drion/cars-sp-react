@@ -11,7 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-import YearPicker from "react-year-picker";
+import CustomYearPicker from "./CustomYearPicker";
 
 import { getAllCarMakes, getAllCarModels } from "../_reducers/";
 
@@ -90,7 +90,8 @@ class CreateForm extends React.Component {
                     margin="dense"
                 >
                     <p className="year-label">Year</p>
-                    <YearPicker
+
+                    <CustomYearPicker
                         id="year"
                         onChange={this.props.handleDateChange}
                         value={this.props.data.year}
