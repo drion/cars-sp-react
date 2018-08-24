@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Button from "@material-ui/core/Button";
-import YearPicker from "react-year-picker";
 
 import { connect } from "react-redux";
 
 import CarTable from "./CarTable";
 import CreateDialog from "./CreateDialog";
+import CustomYearPicker from "./CustomYearPicker";
 import carActions from "../_actions/car.actions";
 
 import "../_styles/HomePage.scss";
@@ -38,12 +38,13 @@ class HomePage extends React.Component {
 
     handleStartFilter = year => {
         this.props.setFilterStartYear(year);
-        this.setState({ startYear: String(year) });
+        this.setState({ startYear: year === null ? "" : String(year) });
     };
 
     handleEndFilter = year => {
+        console.log("HERE");
         this.props.setFilterEndYear(year);
-        this.setState({ endYear: String(year) });
+        this.setState({ endYear: year === null ? "" : String(year) });
     };
 
     render() {
@@ -68,14 +69,14 @@ class HomePage extends React.Component {
                     <div className="content">
                         <div className="buttonContainer">
                             <div className="filter">
-                                <YearPicker
+                                <CustomYearPicker
                                     id="startYear"
                                     onChange={this.handleStartFilter}
                                     value={this.state.startYear}
                                     name="startYear"
                                 />
                                 -
-                                <YearPicker
+                                <CustomYearPicker
                                     id="endYear"
                                     onChange={this.handleEndFilter}
                                     value={this.state.endYear}

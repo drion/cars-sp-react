@@ -56,3 +56,19 @@
         height: 100%;
     }
 }
+
+.custom-year-picker {
+    position: relative;
+    height: 36px;
+    .cancel {
+        position: absolute;
+        top: -4px;
+        right: -2px;
+        color: rgba(0, 0, 0, 0.5);
+    }
+
+    &.year-active i,
+    &.year-active:hover i {
+        display: none;
+    }
+}

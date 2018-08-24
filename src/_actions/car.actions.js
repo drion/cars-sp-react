@@ -152,15 +152,16 @@ const setFilterStartYear = year => (dispatch, getState) => {
     const state = getState();
     const endYear = getFilterEndYear(state);
     const allCars = getAllCars(state);
+    const date = year === null ? carConstants.MIN_YEAR : year;
 
     dispatch({
         type: carConstants.SET_START_YEAR,
-        year
+        year: date
     });
 
     dispatch({
         type: carConstants.FILTER_BY_YEAR,
-        start: year,
+        start: date,
         end: endYear,
         allCars
     });
@@ -170,16 +171,17 @@ const setFilterEndYear = year => (dispatch, getState) => {
     const state = getState();
     const startYear = getFilterStartYear(state);
     const allCars = getAllCars(state);
+    const date = year === null ? carConstants.MAX_YEAR : year;
 
     dispatch({
         type: carConstants.SET_END_YEAR,
-        year
+        year: date
     });
 
     dispatch({
         type: carConstants.FILTER_BY_YEAR,
         start: startYear,
-        end: year,
+        end: date,
         allCars
     });
 };
