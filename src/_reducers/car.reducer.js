@@ -56,6 +56,11 @@ export const allIds = (state = [], action) => {
             return [action.payload.uuid, ...state];
 
         case carConstants.SORT_CARS: {
+            if (
+                action.start !== carConstants.MIN_YEAR ||
+                action.end !== carConstants.MAX_YEAR
+            )
+                return state;
             const { makesById, modelsById, categoriesById } = action;
             let allCars = [...action.allCars];
             allCars = allCars.map(car => {
@@ -131,6 +136,31 @@ export const filteredIds = (state = [], action) => {
                     car => action.start <= car.year && car.year <= action.end
                 )
                 .map(car => car.uuid);
+
+        case carConstants.SORT_CARS: {
+            console.log(action);
+            if (
+                action.start === carConstants.MIN_YEAR &&
+                action.end === carConstants.MAX_YEAR
+            )
+                return state;
+            const { makesById, modelsById, categoriesById } = action;
+            let allCars = [...action.allCars];
+            allCars = allCars.map(car => {
+                const newCar = { ...car };
+                newCar.make = makesById[car.make].name;
+                newCar.model = modelsById[car.model].name;
+                newCar.category = categoriesById[car.category].name;
+                newCar.price = parseFloat(car.price);
+
+                return newCar;
+            });
+
+            return sortList(allCars, action.order, action.orderBy).map(
+                car => car.uuid
+            );
+        }
+
         case carConstants.GET_CARS_SUCCESS:
         case carConstants.GET_CARS_FAILURE:
         case userConstants.LOGOUT:

@@ -6,7 +6,8 @@ import {
     getAllCars,
     getCarModelsById,
     getCarMakesById,
-    getCategoriesById
+    getCategoriesById,
+    getAllOrFilterdCars
 } from "../_reducers/";
 
 function getCarsList() {
@@ -136,10 +137,12 @@ function getModelsList() {
 
 const sortCars = (order, orderBy) => (dispatch, getState) => {
     const state = getState();
-    const allCars = getAllCars(state);
+    const allCars = getAllOrFilterdCars(state);
     const modelsById = getCarModelsById(state);
     const makesById = getCarMakesById(state);
     const categoriesById = getCategoriesById(state);
+    const start = getFilterStartYear(state);
+    const end = getFilterEndYear(state);
 
     dispatch({
         type: carConstants.SORT_CARS,
@@ -148,7 +151,9 @@ const sortCars = (order, orderBy) => (dispatch, getState) => {
         allCars,
         modelsById,
         makesById,
-        categoriesById
+        categoriesById,
+        start,
+        end
     });
 };
 
