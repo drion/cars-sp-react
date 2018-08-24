@@ -27,6 +27,14 @@ export const retrieveCar = (state, uuid) =>
 
 export const getCarsIsLoading = state => fromCars.getCarsIsLoading(state.cars);
 
+export const getFilterStartYear = state =>
+    fromCars.getFilterStartYear(state.cars);
+
+export const getFilterEndYear = state => fromCars.getFilterEndYear(state.cars);
+
+export const getAllOrFilterdCars = state =>
+    fromCars.getAllOrFilterdCars(state.cars);
+
 // Categories selectors
 export const getAllCategories = state =>
     fromCategories.getAllCategories(state.categories);

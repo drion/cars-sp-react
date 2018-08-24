@@ -86,16 +86,75 @@ export const isLoading = (state = false, action) => {
     }
 };
 
+export const filterStartYear = (state = carConstants.MIN_YEAR, action) => {
+    switch (action.type) {
+        case carConstants.SET_START_YEAR:
+            return action.year;
+        case carConstants.GET_CARS_SUCCESS:
+        case carConstants.GET_CARS_FAILURE:
+        case userConstants.LOGOUT:
+            return carConstants.MIN_YEAR;
+        default:
+            return state;
+    }
+};
+
+export const filterEndYear = (state = carConstants.MAX_YEAR, action) => {
+    switch (action.type) {
+        case carConstants.SET_END_YEAR:
+            return action.year;
+        case carConstants.GET_CARS_SUCCESS:
+        case carConstants.GET_CARS_FAILURE:
+        case userConstants.LOGOUT:
+            return carConstants.MAX_YEAR;
+        default:
+            return state;
+    }
+};
+
+export const filteredIds = (state = [], action) => {
+    switch (action.type) {
+        case carConstants.FILTER_BY_YEAR:
+            return action.allCars
+                .filter(
+                    car => action.start <= car.year && car.year <= action.end
+                )
+                .map(car => car.uuid);
+        case carConstants.GET_CARS_SUCCESS:
+        case carConstants.GET_CARS_FAILURE:
+        case userConstants.LOGOUT:
+            return [];
+        default:
+            return state;
+    }
+};
+
 const cars = combineReducers({
     isLoading,
     byId,
-    allIds
+    allIds,
+    filterStartYear,
+    filterEndYear,
+    filteredIds
 });
 
 export default cars;
 
 export const getAllCars = state => state.allIds.map(id => state.byId[id]);
 
+export const getAllOrFilterdCars = state => {
+    if (
+        state.filterStartYear === carConstants.MIN_YEAR &&
+        state.filterEndYear === carConstants.MAX_YEAR
+    )
+        return state.allIds.map(id => state.byId[id]);
+    return state.filteredIds.map(id => state.byId[id]);
+};
+
 export const retrieveCar = (state, uuid) => state.byId[uuid];
 
 export const getCarsIsLoading = state => state.isLoading;
+
+export const getFilterStartYear = state => state.filterStartYear;
+
+export const getFilterEndYear = state => state.filterEndYear;

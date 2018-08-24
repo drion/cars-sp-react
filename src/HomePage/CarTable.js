@@ -8,7 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
 import EnhancedTableHead from "./TableHead";
-import { getAllCars } from "../_reducers/car.reducer";
+import { getAllOrFilterdCars } from "../_reducers/car.reducer";
 import { retrieveCategory } from "../_reducers/categories.reducer";
 import { retrieveCarMake } from "../_reducers/make.reducer";
 import { retrieveCarModel } from "../_reducers/model.reducer";
@@ -54,7 +54,7 @@ class EnhancedTable extends React.Component {
   render() {
     const { cars, categories, carMakes, carModels } = this.props;
     const { order, orderBy, rowsPerPage, page } = this.state;
-    const data = getAllCars(cars);
+    const data = getAllOrFilterdCars(cars);
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 

@@ -1,6 +1,11 @@
 import carConstants from "../_constants/car.constants";
 import carService from "../_services/car.service";
-import { getAllCarModels } from "../_reducers/";
+import {
+    getAllCarModels,
+    getFilterEndYear,
+    getFilterStartYear,
+    getAllCars
+} from "../_reducers/";
 
 function getCarsList() {
     function request() {
@@ -143,13 +148,51 @@ const sortModels = (order, orderBy) => (dispatch, getState) => {
     });
 };
 
+const setFilterStartYear = year => (dispatch, getState) => {
+    const state = getState();
+    const endYear = getFilterEndYear(state);
+    const allCars = getAllCars(state);
+
+    dispatch({
+        type: carConstants.SET_START_YEAR,
+        year
+    });
+
+    dispatch({
+        type: carConstants.FILTER_BY_YEAR,
+        start: year,
+        end: endYear,
+        allCars
+    });
+};
+
+const setFilterEndYear = year => (dispatch, getState) => {
+    const state = getState();
+    const startYear = getFilterStartYear(state);
+    const allCars = getAllCars(state);
+
+    dispatch({
+        type: carConstants.SET_END_YEAR,
+        year
+    });
+
+    dispatch({
+        type: carConstants.FILTER_BY_YEAR,
+        start: startYear,
+        end: year,
+        allCars
+    });
+};
+
 const carActions = {
     getCarsList,
     createCar,
     getCategoriesList,
     getMakesList,
     getModelsList,
-    sortModels
+    sortModels,
+    setFilterStartYear,
+    setFilterEndYear
 };
 
 export default carActions;

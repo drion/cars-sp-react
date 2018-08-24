@@ -36,8 +36,14 @@ class HomePage extends React.Component {
 
     handleCreate = data => this.props.createCar(data);
 
-    handleFilter = year => {
-        console.log(String(year));
+    handleStartFilter = year => {
+        this.props.setFilterStartYear(year);
+        this.setState({ startYear: String(year) });
+    };
+
+    handleEndFilter = year => {
+        this.props.setFilterEndYear(year);
+        this.setState({ endYear: String(year) });
     };
 
     render() {
@@ -64,14 +70,14 @@ class HomePage extends React.Component {
                             <div className="filter">
                                 <YearPicker
                                     id="startYear"
-                                    onChange={this.handleFilter}
+                                    onChange={this.handleStartFilter}
                                     value={this.state.startYear}
                                     name="startYear"
                                 />
                                 -
                                 <YearPicker
                                     id="endYear"
-                                    onChange={this.handleFilter}
+                                    onChange={this.handleEndFilter}
                                     value={this.state.endYear}
                                     name="endYear"
                                 />
@@ -109,6 +115,8 @@ HomePage.propTypes = {
     getModelsList: PropTypes.func.isRequired,
     sortModels: PropTypes.func.isRequired,
     createCar: PropTypes.func.isRequired,
+    setFilterStartYear: PropTypes.func.isRequired,
+    setFilterEndYear: PropTypes.func.isRequired,
     cars: PropTypes.shape({}).isRequired,
     categories: PropTypes.shape({}).isRequired,
     carMakes: PropTypes.shape({}).isRequired,
@@ -128,6 +136,8 @@ export default connect(
         getMakesList: carActions.getMakesList,
         getModelsList: carActions.getModelsList,
         sortModels: carActions.sortModels,
-        createCar: carActions.createCar
+        createCar: carActions.createCar,
+        setFilterStartYear: carActions.setFilterStartYear,
+        setFilterEndYear: carActions.setFilterEndYear
     }
 )(HomePage);
