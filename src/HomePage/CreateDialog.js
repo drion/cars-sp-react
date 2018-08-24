@@ -36,6 +36,16 @@ class FormDialog extends React.Component {
         }));
     };
 
+    handlePriceInput = e => {
+        e.persist();
+        this.setState(prevState => ({
+            data: {
+                ...prevState.data,
+                price: Math.abs(parseFloat(e.target.value))
+            }
+        }));
+    };
+
     validate = () => {
         const errors = {};
         if (!this.state.data.make.length) errors.make = "Make is not selected";
@@ -99,6 +109,7 @@ class FormDialog extends React.Component {
                     <DialogContent>
                         <CreateForm
                             handleInput={this.handleInput}
+                            handlePriceInput={this.handlePriceInput}
                             handleDateChange={this.handleDateChange}
                             data={this.state.data}
                             errors={this.state.errors}

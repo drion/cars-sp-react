@@ -113,8 +113,9 @@ class CreateForm extends React.Component {
                     <Input
                         id="price"
                         value={this.props.data.price}
-                        onChange={this.props.handleInput}
+                        onChange={this.props.handlePriceInput}
                         name="price"
+                        type="number"
                     />
 
                     <FormHelperText id="price-error-text">
@@ -150,6 +151,7 @@ CreateForm.propTypes = {
     models: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
     handleInput: PropTypes.func.isRequired,
     handleDateChange: PropTypes.func.isRequired,
+    handlePriceInput: PropTypes.func.isRequired,
     data: PropTypes.shape({
         make: PropTypes.string.isRequired,
         model: PropTypes.string.isRequired,

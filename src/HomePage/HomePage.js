@@ -42,7 +42,6 @@ class HomePage extends React.Component {
     };
 
     handleEndFilter = year => {
-        console.log("HERE");
         this.props.setFilterEndYear(year);
         this.setState({ endYear: year === null ? "" : String(year) });
     };
