@@ -22,7 +22,7 @@ class EnhancedTable extends React.Component {
       orderBy: "make",
       data: [],
       page: 0,
-      rowsPerPage: 5
+      rowsPerPage: 10
     };
   }
 
@@ -75,7 +75,6 @@ class EnhancedTable extends React.Component {
                 .map(n => (
                   <TableRow
                     hover
-                    onClick={event => this.handleClick(event, n.id)}
                     role="checkbox"
                     aria-checked={false}
                     tabIndex={-1}

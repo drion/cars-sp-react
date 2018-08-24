@@ -4,13 +4,12 @@ import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 
+import FormHelperText from "@material-ui/core/FormHelperText";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-
-import TextField from "@material-ui/core/TextField";
 
 import { getAllCarMakes, getAllCarModels } from "../_reducers/";
 
@@ -28,7 +27,11 @@ class CreateForm extends React.Component {
 
         return (
             <div>
-                <FormControl fullWidth>
+                <FormControl
+                    error={this.props.errors.make}
+                    fullWidth
+                    margin="dense"
+                >
                     <InputLabel htmlFor="select-multiple">Make</InputLabel>
                     <Select
                         value={this.props.data.make}
@@ -43,10 +46,17 @@ class CreateForm extends React.Component {
                             </MenuItem>
                         ))}
                     </Select>
+                    <FormHelperText id="make-error-text">
+                        {this.props.errors.make}
+                    </FormHelperText>
                 </FormControl>
 
-                <FormControl fullWidth>
-                    <InputLabel htmlFor="select-multiple">Model</InputLabel>
+                <FormControl
+                    error={this.props.errors.model}
+                    fullWidth
+                    margin="dense"
+                >
+                    <InputLabel htmlFor="select-model">Model</InputLabel>
                     <Select
                         value={this.props.data.model}
                         onChange={this.props.handleInput}
@@ -66,37 +76,67 @@ class CreateForm extends React.Component {
                             </MenuItem>
                         ))}
                     </Select>
+                    <FormHelperText id="model-error-text">
+                        {this.props.errors.model}
+                    </FormHelperText>
                 </FormControl>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    name="year"
-                    label="Year"
-                    type="text"
-                    onChange={this.props.handleInput}
-                    value={this.props.data.year}
+
+                <FormControl
+                    error={this.props.errors.year}
+                    aria-describedby="year-text"
                     fullWidth
-                />
-                <TextField
-                    autoFocus
                     margin="dense"
-                    name="price"
-                    label="Price"
-                    type="text"
-                    onChange={this.props.handleInput}
-                    value={this.props.data.price}
+                >
+                    <InputLabel htmlFor="year">Year</InputLabel>
+                    <Input
+                        id="year"
+                        value={this.props.data.year}
+                        onChange={this.props.handleInput}
+                        name="year"
+                    />
+
+                    <FormHelperText id="year-error-text">
+                        {this.props.errors.year}
+                    </FormHelperText>
+                </FormControl>
+
+                <FormControl
+                    error={this.props.errors.price}
+                    aria-describedby="price-text"
                     fullWidth
-                />
-                <TextField
-                    autoFocus
                     margin="dense"
-                    name="owner"
-                    label="Owner"
-                    type="text"
-                    onChange={this.props.handleInput}
-                    value={this.props.data.owner}
+                >
+                    <InputLabel htmlFor="price">Price</InputLabel>
+                    <Input
+                        id="price"
+                        value={this.props.data.price}
+                        onChange={this.props.handleInput}
+                        name="price"
+                    />
+
+                    <FormHelperText id="price-error-text">
+                        {this.props.errors.price}
+                    </FormHelperText>
+                </FormControl>
+
+                <FormControl
+                    error={this.props.errors.owner}
+                    aria-describedby="owner-text"
                     fullWidth
-                />
+                    margin="dense"
+                >
+                    <InputLabel htmlFor="owner">Owner</InputLabel>
+                    <Input
+                        id="owner"
+                        value={this.props.data.owner}
+                        onChange={this.props.handleInput}
+                        name="owner"
+                    />
+
+                    <FormHelperText id="owner-error-text">
+                        {this.props.errors.owner}
+                    </FormHelperText>
+                </FormControl>
             </div>
         );
     }
@@ -112,6 +152,13 @@ CreateForm.propTypes = {
         year: PropTypes.string.isRequired,
         price: PropTypes.string.isRequired,
         owner: PropTypes.string.isRequired
+    }).isRequired,
+    errors: PropTypes.shape({
+        owner: PropTypes.string,
+        price: PropTypes.string,
+        year: PropTypes.string,
+        model: PropTypes.string,
+        make: PropTypes.stringm
     }).isRequired
 };
 

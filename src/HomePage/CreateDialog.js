@@ -22,7 +22,8 @@ class FormDialog extends React.Component {
             year: "",
             price: "",
             owner: ""
-        }
+        },
+        errors: {}
     };
 
     handleInput = e => {
@@ -35,15 +36,48 @@ class FormDialog extends React.Component {
         }));
     };
 
+    validate = () => {
+        const errors = {};
+        if (!this.state.data.make.length) errors.make = "Make is not selected";
+        if (!this.state.data.model.length)
+            errors.model = "Model is not selected";
+        if (!this.state.data.year.length) errors.year = "Year is required";
+        if (!this.state.data.price.length) errors.price = "Price is required";
+        if (!this.state.data.owner.length) errors.owner = "Owner is required";
+
+        return errors;
+    };
+
     handleCreate = () => {
-        const data = { ...this.state.data };
-        data.make = this.props.makes.find(
-            m => m.name === this.state.data.make
-        ).uuid;
-        data.model = this.props.models.find(
-            m => m.name === this.state.data.model
-        ).uuid;
-        this.props.handleCreate(data);
+        const errors = this.validate();
+        if (Object.keys(errors).length === 0) {
+            const data = { ...this.state.data };
+            data.make = this.props.makes.find(
+                m => m.name === this.state.data.make
+            ).uuid;
+            data.model = this.props.models.find(
+                m => m.name === this.state.data.model
+            ).uuid;
+            this.props.handleCreate(data);
+            this.handleClose();
+        } else {
+            this.setState({ errors });
+        }
+    };
+
+    handleClose = () => {
+        this.setState({
+            data: {
+                make: "",
+                model: "",
+                year: "",
+                price: "",
+                owner: ""
+            },
+            errors: {}
+        });
+
+        this.props.handleClose();
     };
 
     render() {
@@ -61,16 +95,19 @@ class FormDialog extends React.Component {
                         <CreateForm
                             handleInput={this.handleInput}
                             data={this.state.data}
+                            errors={this.state.errors}
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button
-                            onClick={this.props.handleClose}
-                            color="primary"
-                        >
+                        <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleCreate} color="primary">
+                        <Button
+                            onClick={this.handleCreate}
+                            variant="contained"
+                            color="primary"
+                            className="create-button"
+                        >
                             Create
                         </Button>
                     </DialogActions>
