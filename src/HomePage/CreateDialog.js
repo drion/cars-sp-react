@@ -65,6 +65,11 @@ class FormDialog extends React.Component {
         }
     };
 
+    handleDateChange = year =>
+        this.setState(prevState => ({
+            data: { ...prevState.data, year: String(year) }
+        }));
+
     handleClose = () => {
         this.setState({
             data: {
@@ -94,6 +99,7 @@ class FormDialog extends React.Component {
                     <DialogContent>
                         <CreateForm
                             handleInput={this.handleInput}
+                            handleDateChange={this.handleDateChange}
                             data={this.state.data}
                             errors={this.state.errors}
                         />

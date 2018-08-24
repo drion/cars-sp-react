@@ -27,3 +27,12 @@
         width: 100%;
     }
 }
+
+.picker-panel {
+    z-index: 10;
+}
+
+.year-label {
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 8px;
+}

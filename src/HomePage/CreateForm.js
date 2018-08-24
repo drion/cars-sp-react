@@ -11,6 +11,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
+import YearPicker from "react-year-picker";
+
 import { getAllCarMakes, getAllCarModels } from "../_reducers/";
 
 class CreateForm extends React.Component {
@@ -87,11 +89,11 @@ class CreateForm extends React.Component {
                     fullWidth
                     margin="dense"
                 >
-                    <InputLabel htmlFor="year">Year</InputLabel>
-                    <Input
+                    <p className="year-label">Year</p>
+                    <YearPicker
                         id="year"
+                        onChange={this.props.handleDateChange}
                         value={this.props.data.year}
-                        onChange={this.props.handleInput}
                         name="year"
                     />
 
@@ -146,6 +148,7 @@ CreateForm.propTypes = {
     makes: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
     models: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
     handleInput: PropTypes.func.isRequired,
+    handleDateChange: PropTypes.func.isRequired,
     data: PropTypes.shape({
         make: PropTypes.string.isRequired,
         model: PropTypes.string.isRequired,

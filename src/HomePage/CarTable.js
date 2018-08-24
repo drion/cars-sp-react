@@ -85,16 +85,16 @@ class EnhancedTable extends React.Component {
                     <TableCell component="th" scope="row" padding="none">
                       {n.uuid}
                     </TableCell>
-                    <TableCell numeric>
+                    <TableCell>
                       {retrieveCarMake(carMakes, n.make).name}
                     </TableCell>
-                    <TableCell numeric>
+                    <TableCell>
                       {retrieveCarModel(carModels, n.model).name}
                     </TableCell>
-                    <TableCell numeric>
+                    <TableCell>
                       {retrieveCategory(categories, n.category).name}
                     </TableCell>
-                    <TableCell numeric>{n.price}</TableCell>
+                    <TableCell>$ {Number(n.price).toFixed(2)}</TableCell>
                   </TableRow>
                 ))}
               {emptyRows > 0 && (

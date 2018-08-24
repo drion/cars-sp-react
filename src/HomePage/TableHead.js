@@ -13,10 +13,10 @@ const columnData = [
     disablePadding: true,
     label: "Id"
   },
-  { id: "make", numeric: true, disablePadding: false, label: "Make" },
-  { id: "model", numeric: true, disablePadding: false, label: "Model" },
-  { id: "category", numeric: true, disablePadding: false, label: "Category" },
-  { id: "price", numeric: true, disablePadding: false, label: "Price" }
+  { id: "make", numeric: false, disablePadding: false, label: "Make" },
+  { id: "model", numeric: false, disablePadding: false, label: "Model" },
+  { id: "category", numeric: false, disablePadding: false, label: "Category" },
+  { id: "price", numeric: false, disablePadding: false, label: "Price" }
 ];
 
 class EnhancedTableHead extends React.Component {
