@@ -37,7 +37,7 @@ class CreateForm extends React.Component {
                     <InputLabel htmlFor="select-multiple">Make</InputLabel>
                     <Select
                         value={this.props.data.make}
-                        onChange={this.props.handleInput}
+                        onChange={this.props.handleMakeInput}
                         name="make"
                         input={<Input id="select-multiple" />}
                         fullWidth
@@ -152,6 +152,7 @@ CreateForm.propTypes = {
     handleInput: PropTypes.func.isRequired,
     handleDateChange: PropTypes.func.isRequired,
     handlePriceInput: PropTypes.func.isRequired,
+    handleMakeInput: PropTypes.func.isRequired,
     data: PropTypes.shape({
         make: PropTypes.string.isRequired,
         model: PropTypes.string.isRequired,
@@ -164,7 +165,7 @@ CreateForm.propTypes = {
         price: PropTypes.string,
         year: PropTypes.string,
         model: PropTypes.string,
-        make: PropTypes.stringm
+        make: PropTypes.string
     }).isRequired
 };
 
