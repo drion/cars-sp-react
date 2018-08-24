@@ -55,12 +55,23 @@ export const allIds = (state = [], action) => {
         case carConstants.CREATE_CAR_SUCCESS:
             return [action.payload.uuid, ...state];
 
-        case carConstants.SORT_CARS:
-            return action.text
-                ? state
-                : sortList(action.list, action.order, action.orderBy).map(
-                      car => car.uuid
-                  );
+        case carConstants.SORT_CARS: {
+            const { makesById, modelsById, categoriesById } = action;
+            let allCars = [...action.allCars];
+            allCars = allCars.map(car => {
+                const newCar = { ...car };
+                newCar.make = makesById[car.make].name;
+                newCar.model = modelsById[car.model].name;
+                newCar.category = categoriesById[car.category].name;
+                newCar.price = parseFloat(car.price);
+
+                return newCar;
+            });
+
+            return sortList(allCars, action.order, action.orderBy).map(
+                car => car.uuid
+            );
+        }
 
         case carConstants.DELETE_CAR_SUCCESS:
             return state.filter(item => item !== action.id);

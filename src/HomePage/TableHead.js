@@ -7,65 +7,80 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Tooltip from "@material-ui/core/Tooltip";
 
 const columnData = [
-  {
-    id: "id",
-    numeric: false,
-    disablePadding: true,
-    label: "Id"
-  },
-  { id: "make", numeric: false, disablePadding: false, label: "Make" },
-  { id: "model", numeric: false, disablePadding: false, label: "Model" },
-  { id: "category", numeric: false, disablePadding: false, label: "Category" },
-  { id: "price", numeric: false, disablePadding: false, label: "Price" }
+    {
+        id: "uuid",
+        numeric: false,
+        disablePadding: true,
+        label: "Id"
+    },
+    { id: "make", numeric: false, disablePadding: false, label: "Make" },
+    { id: "model", numeric: false, disablePadding: false, label: "Model" },
+    {
+        id: "category",
+        numeric: false,
+        disablePadding: false,
+        label: "Category"
+    },
+    { id: "price", numeric: false, disablePadding: false, label: "Price" }
 ];
 
 class EnhancedTableHead extends React.Component {
-  createSortHandler = property => event => {
-    this.props.onRequestSort(event, property);
-  };
+    createSortHandler = property => event => {
+        this.props.onRequestSort(event, property);
+    };
 
-  render() {
-    const { order, orderBy } = this.props;
+    render() {
+        const { order, orderBy } = this.props;
 
-    return (
-      <TableHead>
-        <TableRow>
-          <TableCell padding="checkbox" />
-          {columnData.map(
-            column => (
-              <TableCell
-                key={column.id}
-                numeric={column.numeric}
-                padding={column.disablePadding ? "none" : "default"}
-                sortDirection={orderBy === column.id ? order : false}
-              >
-                <Tooltip
-                  title="Sort"
-                  placement={column.numeric ? "bottom-end" : "bottom-start"}
-                  enterDelay={300}
-                >
-                  <TableSortLabel
-                    active={orderBy === column.id}
-                    direction={order}
-                    onClick={this.createSortHandler(column.id)}
-                  >
-                    {column.label}
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-            ),
-            this
-          )}
-        </TableRow>
-      </TableHead>
-    );
-  }
+        return (
+            <TableHead>
+                <TableRow>
+                    <TableCell padding="checkbox" />
+                    {columnData.map(
+                        column => (
+                            <TableCell
+                                key={column.id}
+                                numeric={column.numeric}
+                                padding={
+                                    column.disablePadding ? "none" : "default"
+                                }
+                                sortDirection={
+                                    orderBy === column.id ? order : false
+                                }
+                            >
+                                <Tooltip
+                                    title="Sort"
+                                    placement={
+                                        column.numeric
+                                            ? "bottom-end"
+                                            : "bottom-start"
+                                    }
+                                    enterDelay={300}
+                                >
+                                    <TableSortLabel
+                                        active={orderBy === column.id}
+                                        direction={order}
+                                        onClick={this.createSortHandler(
+                                            column.id
+                                        )}
+                                    >
+                                        {column.label}
+                                    </TableSortLabel>
+                                </Tooltip>
+                            </TableCell>
+                        ),
+                        this
+                    )}
+                </TableRow>
+            </TableHead>
+        );
+    }
 }
 
 EnhancedTableHead.propTypes = {
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired
+    onRequestSort: PropTypes.func.isRequired,
+    order: PropTypes.string.isRequired,
+    orderBy: PropTypes.string.isRequired
 };
 
 export default EnhancedTableHead;

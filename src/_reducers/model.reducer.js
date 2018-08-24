@@ -99,3 +99,5 @@ export const getAllCarModels = state => state.allIds.map(id => state.byId[id]);
 export const retrieveCarModel = (state, uuid) => state.byId[uuid];
 
 export const getCarModelsIsLoading = state => state.isLoading;
+
+export const getCarModelsById = state => ({ ...state.byId });

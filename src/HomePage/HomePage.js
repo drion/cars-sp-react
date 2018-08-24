@@ -48,13 +48,7 @@ class HomePage extends React.Component {
 
     render() {
         const { open } = this.state;
-        const {
-            cars,
-            categories,
-            carMakes,
-            carModels,
-            sortModels
-        } = this.props;
+        const { cars, categories, carMakes, carModels, sortCars } = this.props;
 
         const isLoading =
             cars.isLoading ||
@@ -94,7 +88,7 @@ class HomePage extends React.Component {
                             categories={categories}
                             carMakes={carMakes}
                             carModels={carModels}
-                            sortModels={sortModels}
+                            sortCars={sortCars}
                         />
                         <CreateDialog
                             open={open}
@@ -113,7 +107,7 @@ HomePage.propTypes = {
     getCategoriesList: PropTypes.func.isRequired,
     getMakesList: PropTypes.func.isRequired,
     getModelsList: PropTypes.func.isRequired,
-    sortModels: PropTypes.func.isRequired,
+    sortCars: PropTypes.func.isRequired,
     createCar: PropTypes.func.isRequired,
     setFilterStartYear: PropTypes.func.isRequired,
     setFilterEndYear: PropTypes.func.isRequired,
@@ -135,7 +129,7 @@ export default connect(
         getCategoriesList: carActions.getCategoriesList,
         getMakesList: carActions.getMakesList,
         getModelsList: carActions.getModelsList,
-        sortModels: carActions.sortModels,
+        sortCars: carActions.sortCars,
         createCar: carActions.createCar,
         setFilterStartYear: carActions.setFilterStartYear,
         setFilterEndYear: carActions.setFilterEndYear

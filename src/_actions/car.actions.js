@@ -1,10 +1,12 @@
 import carConstants from "../_constants/car.constants";
 import carService from "../_services/car.service";
 import {
-    getAllCarModels,
     getFilterEndYear,
     getFilterStartYear,
-    getAllCars
+    getAllCars,
+    getCarModelsById,
+    getCarMakesById,
+    getCategoriesById
 } from "../_reducers/";
 
 function getCarsList() {
@@ -132,19 +134,21 @@ function getModelsList() {
     };
 }
 
-const sortModels = (order, orderBy) => (dispatch, getState) => {
+const sortCars = (order, orderBy) => (dispatch, getState) => {
     const state = getState();
-    const allModels = getAllCarModels(state);
-    // const searchFoundationsList = getSearchFoundations(state);
-    // const searchText = getSearchText(state);
+    const allCars = getAllCars(state);
+    const modelsById = getCarModelsById(state);
+    const makesById = getCarMakesById(state);
+    const categoriesById = getCategoriesById(state);
 
     dispatch({
-        type: carConstants.SORT_MODELS,
-        // list: searchText ? searchFoundationsList : allFoundations,
-        list: allModels,
+        type: carConstants.SORT_CARS,
         order,
-        text: "",
-        orderBy
+        orderBy,
+        allCars,
+        modelsById,
+        makesById,
+        categoriesById
     });
 };
 
@@ -192,7 +196,7 @@ const carActions = {
     getCategoriesList,
     getMakesList,
     getModelsList,
-    sortModels,
+    sortCars,
     setFilterStartYear,
     setFilterEndYear
 };

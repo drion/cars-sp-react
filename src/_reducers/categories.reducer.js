@@ -99,3 +99,5 @@ export const getAllCategories = state => state.allIds.map(id => state.byId[id]);
 export const retrieveCategory = (state, uuid) => state.byId[uuid];
 
 export const getCategoriesIsLoading = state => state.isLoading;
+
+export const getCategoriesById = state => ({ ...state.byId });

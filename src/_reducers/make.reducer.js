@@ -99,3 +99,5 @@ export const getAllCarMakes = state => state.allIds.map(id => state.byId[id]);
 export const retrieveCarMake = (state, uuid) => state.byId[uuid];
 
 export const getCarMakesIsLoading = state => state.isLoading;
+
+export const getCarMakesById = state => ({ ...state.byId });

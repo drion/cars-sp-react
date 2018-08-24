@@ -34,11 +34,7 @@ class EnhancedTable extends React.Component {
             order = "asc";
         }
 
-        const functions = {
-            model: () => this.props.sortModels(order, "model")
-        };
-
-        functions[orderBy]();
+        this.props.sortCars(order, orderBy);
 
         this.setState({ order, orderBy });
     };
@@ -154,7 +150,7 @@ EnhancedTable.propTypes = {
     carModels: PropTypes.shape({}).isRequired,
     carMakes: PropTypes.shape({}).isRequired,
     categories: PropTypes.shape({}).isRequired,
-    sortModels: PropTypes.func.isRequired
+    sortCars: PropTypes.func.isRequired
 };
 
 export default EnhancedTable;

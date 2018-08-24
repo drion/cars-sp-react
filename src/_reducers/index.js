@@ -43,7 +43,10 @@ export const retrieveCategory = (state, uuid) =>
     fromCategories.retrieveCategory(state.categories, uuid);
 
 export const getCategoriesIsLoading = state =>
-    getCategoriesIsLoading(state.categories);
+    fromCategories.getCategoriesIsLoading(state.categories);
+
+export const getCategoriesById = state =>
+    fromCategories.getCategoriesById(state.categories);
 
 // CarMakes selectors
 export const getAllCarMakes = state =>
@@ -55,6 +58,9 @@ export const retrieveCarMake = (state, uuid) =>
 export const getCarMakesIsLoading = state =>
     fromCarMakes.getCarMakesIsLoading(state.carMakes);
 
+export const getCarMakesById = state =>
+    fromCarMakes.getCarMakesById(state.carMakes);
+
 // CarModels selectors
 export const getAllCarModels = state =>
     fromCarModels.getAllCarModels(state.carModels);
@@ -64,3 +70,6 @@ export const retrieveCarModel = (state, uuid) =>
 
 export const getCarModelsIsLoading = state =>
     fromCarModels.getCarModelsIsLoading(state.carModels);
+
+export const getCarModelsById = state =>
+    fromCarModels.getCarModelsById(state.carModels);
