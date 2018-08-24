@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import Button from "@material-ui/core/Button";
+import YearPicker from "react-year-picker";
 
 import { connect } from "react-redux";
 
@@ -12,7 +14,9 @@ import "../_styles/HomePage.scss";
 
 class HomePage extends React.Component {
     state = {
-        open: false
+        open: false,
+        startYear: "",
+        endYear: ""
     };
 
     componentDidMount() {
@@ -31,6 +35,10 @@ class HomePage extends React.Component {
     };
 
     handleCreate = data => this.props.createCar(data);
+
+    handleFilter = year => {
+        console.log(String(year));
+    };
 
     render() {
         const { open } = this.state;
@@ -53,6 +61,21 @@ class HomePage extends React.Component {
                 {!isLoading && (
                     <div className="content">
                         <div className="buttonContainer">
+                            <div className="filter">
+                                <YearPicker
+                                    id="startYear"
+                                    onChange={this.handleFilter}
+                                    value={this.state.startYear}
+                                    name="startYear"
+                                />
+                                -
+                                <YearPicker
+                                    id="endYear"
+                                    onChange={this.handleFilter}
+                                    value={this.state.endYear}
+                                    name="endYear"
+                                />
+                            </div>
                             <Button
                                 onClick={this.handleClickOpen}
                                 className="addNewCar"
